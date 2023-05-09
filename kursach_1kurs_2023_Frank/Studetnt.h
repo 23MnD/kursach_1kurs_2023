@@ -1,4 +1,7 @@
 #pragma once
+#if defined(max)
+#undef max
+#endif
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -6,10 +9,10 @@
 using namespace std;
 struct Chel
 {
-	string name;
-	string surName;
-	string familyName;
-	string sex;
+	string name="";
+	string surName="";
+	string familyName="";
+	 char sex[1];
 };
 struct Date
 {
@@ -22,7 +25,7 @@ struct University
 	string faculty;
 	string department; //кафедра
 	string group;
-	string record_book_number; //номер зачётной книжки
+	int record_book_number; //номер зачётной книжки
 };
 struct Exam {
 	string nameExam;
@@ -33,20 +36,42 @@ struct Exam {
 class Student
 {
 private:
-	Chel* chel;
-	Date* data;
-	University* univer;
+	Chel chel;
+	Date data;
+	University univer;
 	Exam exam_marks[9][10]; //9 - семестров и 10 - предметов
-	List<string> lst;
+
 
 public:
-	void setChel_Name(string name);
+	Student()
+	{
+		chel.name = "default";
+		chel.surName = "default";
+		chel.familyName= "default";
+		*chel.sex=*"d";
+		data.birthday = 1;
+		data.birthmonth = 1;
+		data.birthyear = 2000;       
+		univer.department = "default";;
+		univer.faculty = "default";;
+		univer.group= "default";
+		univer.record_book_number=12345;
+		for (size_t j = 0; j < 9; j++)
+		{
+			for (size_t k = 0; k < 10; k++)
+			{
+				exam_marks[j][k].nameExam = "bebra";
+				exam_marks[j][k].mark = -1;
+			}
+		}
+	}
+	bool setChel_Name(string name);
 	
-	void setChel_surName(string surName);
+	bool setChel_surName(string surName); 
 	
-	void setChel_familyName(string familyName);
+	bool setChel_familyName(string familyName);
 	
-	void setChel_sex(string sex);
+	bool setChel_sex(char sex);
 	
 	string getChel_name();
 
@@ -57,9 +82,9 @@ public:
 	string getChel_sex();
 
 
-	void setDate_day(unsigned short birthday);
+	bool setDate_day(unsigned short birthday);
 	
-	void setDate_month(unsigned short birthmonth);
+	bool setDate_month(unsigned short birthmonth);
 
 	void setDate_year(unsigned short birthyear);
 
@@ -75,7 +100,7 @@ public:
 
 	void setUniversity_group(string group);
 
-	void setUniversity_record_book_number(string record_book_number);
+	void setUniversity_record_book_number(int record_book_number);
 
 	string getUniversity_faculty();
 
@@ -83,20 +108,19 @@ public:
 
 	string getUniversity_group();
 
-	string getUniversity_record_book_number();
+	int getUniversity_record_book_number();
 
 	void setMark(int semestr, int pos, int mark);
 
 	int getMark(int semestr, int pos);
 
-	void setNameSubject(int semestr, int pos, string name);
+	bool setNameSubject(int semestr, int pos, string name);
 	
 	string getNameSubject(int semestr, int pos);
 
-	
 	void printDate();
 	
-
+	
 
 
 

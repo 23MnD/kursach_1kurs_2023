@@ -1,107 +1,187 @@
 #pragma once
+//написать примрную работу с оценками.
 #include "Menu.h"
+#include<iostream>
+#include <algorithm>
+using namespace std;
 int choice;
-void Menu:: MainMenu()
+void Menu:: MainMenu(List<Student>& student)
 {
-	List<Student> student;
+	while (true)
+	{
 	cout << "Меню\n"
 		<< "(0) Добавить студента.\n"
 		<< "(1) Изменить данные студента.\n"
 		<< "(2) Удалить студента.\n"
 		<< "(3) Вывести всех студентов.\n"
-		<< "(4) Выход.";
-	cin >> choice;
-	while(true)
-	{ 
-		switch (choice)
+		<< "(4) Выполнить вариант 96.\n"
+		<< "(5) Выход.\n";
+	cin >> choice; 
+			switch (choice)
 		{
 		case 0:
-			EntryInformation();
+			EntryInformation(student);
+			ChangeExamStudent(student);
+			WriteToFile(student);
 			break;
 		case 1:
-			ChangeInformation();
+			ChangeInformation(student);
+			WriteToFile(student);
 			break;
 		case 2:
-			DeleteInformation();
+			DeleteInformation(student);
+			WriteToFile(student);
 			break;
 		case 3:
 			printStudent(student);
 			break;
 			
 		case 4:
+			Variant_96(student);
 			break;
+		case 5:
+			return;
 		
 		}
-		break;
-	
 	}
+	
 }
-int Menu:: EntryInformation()
+
+void Menu::EntryInformation(List<Student>&  studentlst)
 {
 	Student student;
 	string name,
-		surName, 
-		Familyname, 
-		sex, 
+		surName,
+		Familyname,
 		faculty,
 		department,//кафедра
-		group,
-		record_book_number;//номер зачётной книжки
+		group;
+		int record_book_number;//номер зачётной книжки
+	char sex[1];
 	unsigned short birthday;
 	unsigned short birthmonth;
 	unsigned short birthyear;
-	 List<Student>  studentlst;
-
-	while(true)
+	
+	int number_of_student;
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+	cout << "Введите количество студентов, которое хотите добавить:";
+	cin >> number_of_student;
+	for (int i = 0; i < number_of_student; i++)
 	{
-		cout << "Введите Фамилию/Имя/Отчество: ";
-		cin >> Familyname >> name >> surName;
-		student.setChel_familyName(Familyname); student.setChel_Name(name); student.setChel_surName(surName);
-		
-		cout << "Введите пол студента (М-мужской или Ж-женский): ";
-		cin >> sex;
-		student.setChel_sex(sex);
-		cout << "Ввидете дату роджения студента: ";
-		cin >> birthday >> birthmonth >> birthyear;
-		student.setDate_day(birthday);  student.setDate_month(birthmonth); student.setDate_year(birthyear);
+		while (true)
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cout << "Введите Фамилию: ";
+			getline(cin, Familyname);
+			
+
+			if (student.setChel_familyName(Familyname)) break;
+			else cout << "Введите заново: " << endl;
+		}
+		while (true)
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cout << "Введите Имя: ";
+			/*std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
+			getline(cin, name);
+			
+			student.setChel_Name(name);
+			if (student.setChel_Name(name)) break;
+			else cout << "Введите заново: " << endl;
+		}
+		while (true)
+		{
+			cout << "Введите Отчество: ";
+			/*std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
+			getline(cin, surName);
+			student.setChel_surName(surName);
+			if (student.setChel_surName(surName)) break;
+			else cout << "Введите заново: " << endl;
+		}
+		while (true)
+		{
+			cout << "Введите пол студента (М-мужской или Ж-женский): ";
+			scanf_s("%c", sex);
+			/*std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
+			student.setChel_sex(*sex);
+			if (student.setChel_sex(*sex)) break;
+			else cout << "Введите заново: " << endl;
+		}
+		while (true)
+		{
+			cout << "Ввидете день роджения студента: ";
+			cin >> birthday;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			student.setDate_day(birthday);
+			if (student.setDate_day(birthday)) break;
+			else cout << "Введите заново: " << endl;
+		}
+		while (true)
+		{
+			cout << "Ввидете месяц роджения студента: ";
+			cin >> birthmonth;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			student.setDate_month(birthmonth);
+			if (student.setDate_month(birthmonth)) break;
+			else cout << "Введите заново: " << endl;
+		}
+		cout << "Ввидете год роджения студента: ";
+		cin >> birthyear;
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		student.setDate_year(birthyear);
 		cout << "Введите факультет: ";
-		cin >> faculty;
+		getline(cin, faculty);
+		/*std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
 		student.setUniversity_faculty(faculty);
 		cout << "Введите кафедру: ";
-		cin >> department;
+		getline(cin, department);
+		/*std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
 		student.setUniversity_department(department);
-		cout << "Введите номер зачетной кижки(в формате 12А4567): ";
-		cin >> record_book_number;
+		cout << "Введите номер зачетной кижки: ";
+		cin>>record_book_number;
+		/*std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
 		student.setUniversity_record_book_number(record_book_number);
 		cout << "Ввидете группу студента: ";
-		cin >> group;
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		getline(cin, group);
 		student.setUniversity_group(group);
 		studentlst.push_front(student);
 		
 	}
 	WriteToFile(studentlst);
-	
 }
 
-void Menu::ChangeInformation()
+void Menu::ChangeInformation(List<Student> & studentlst)
 {
 	int index;
-	List<Student>  studentlst;
-	List<int> sizelst;//кол-чо студентво
 	Student student;
 	string Newname,
 		NewSurName,
 		NewFamilyname,
-		Newsex,
 		Newfaculty,
 		Newdepartment,//кафедра
-		Newgroup,
-		Newrecord_book_number;//номер зачётной книжки
+		Newgroup;
+		int Newrecord_book_number;//номер зачётной книжки
+	char Newsex[1];
 	unsigned short Newbirthday;
 	unsigned short Newbirthmonth;
 	unsigned short Newbirthyear;
-	cout << "Введите номер студента, которого хотите удалить: ";
+	cout << "Введите номер студента, которого хотите изменить: ";
 	cin >> index;
+	index--;
 	cout << "(0) Изменить Имя студента \n"
 		<< "(1) Изменить Фамилию студента \n"
 		<< "(2) Изменить Отчество студента \n"
@@ -112,87 +192,149 @@ void Menu::ChangeInformation()
 		<< "(7) Изменить Факультет студента \n"
 		<< "(8) Изменить Кафедру студента \n"
 		<< "(9) Изменить Номер зачётной книжки  студента \n"
-		<< "(10) Изменить Группу студента \n";
-	for (int i = 0; i < sizelst.getsizeList(); i++)
+		<< "(10) Изменить Группу студента \n"
+		<<"(11) Изменить данные об экзаменах\n"
+		<< "(12) Выход\n";
+	for (int i = 0; i < (int)studentlst.getsizeList(); i++)
 	{
 		if (i == index) 
 		{
-			cout << "Введите цифру для того, чтобы изменить в студенте что-то из параметров: ";
-			cin >> choice;
+			cin >> choice;	
 			switch (choice)
 			{
 			case 0:
-				cout << "Введите новое Имя студента: ";
-				cin >> Newname;
-				student.setChel_Name(Newname);
-			
+				while (true)
+				{
+					cout << "Введите новое Имя студента: ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					getline(cin, Newname);
+					studentlst[index].setChel_Name(Newname);
+					if (studentlst[index].setChel_Name(Newname))break;
+					else cout << "Введите заново: " << endl;
+				}
+				
 				break;
 			case 1:
-				cout << "Введите новую Фамилию студента: ";
-				cin >> NewFamilyname;
-				student.setChel_familyName(NewFamilyname);
+				while (true)
+				{
+					cout << "Введите новую Фамилию студента: ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					getline(cin, NewFamilyname);
+					studentlst[index].setChel_familyName(NewFamilyname);
+					if (studentlst[index].setChel_familyName(NewFamilyname))break;
+					else cout << "Введите заново: " << endl;
+				}
+				
 				break;
 			case 2:
-				cout << "Введите новое Отчество студента: ";
-				cin >> NewSurName;
-				student.setChel_surName(NewSurName);
+				while (true)
+				{
+					cout << "Введите новое Отчество студента: ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					getline(cin, NewSurName);
+					studentlst[index].setChel_surName(NewSurName);
+					if (studentlst[index].setChel_surName(NewSurName)) break;
+					else cout << "Введите заново: " << endl;
+				}
+				
 				break;
 			case 3:
-				cout << "Введите новый Пол студента: ";
-				cin >> Newsex;
-				student.setChel_sex(Newsex);
+				while (true)
+				{
+					cout << "Введите новый Пол студента: ";
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					scanf_s("%c", Newsex);
+					studentlst[index].setChel_sex(*Newsex);
+					if (studentlst[index].setChel_sex(*Newsex)) break;
+					else cout << "Введите заново: " << endl;
+				}
+				
 				break;
 			case 4:
-				cout << "Введите новый День рождения студента: ";
-				cin >> Newbirthday;
-				student.setDate_day(Newbirthday);
+				while (true)
+				{
+					cout << "Введите новый День рождения студента: ";
+					cin >> Newbirthday;
+					studentlst[index].setDate_day(Newbirthday);
+					if (studentlst[index].setDate_day(Newbirthday)) break;
+					else cout << "Введите заново: " << endl;
+				}
+				
 				break;
 			case 5:
-				cout << "Введите новый Месяц рождения студента: ";
-				cin >> Newbirthmonth;
-				student.setDate_month(Newbirthmonth);
+				while (true)
+				{
+					cout << "Введите новый Месяц рождения студента: ";
+					cin >> Newbirthmonth;
+					studentlst[index].setDate_month(Newbirthmonth);
+					if (studentlst[index].setDate_month(Newbirthmonth)) break;
+					else cout << "Введите заново: " << endl;
+				}
+				
 				break;
 			case 6:
 				cout << "Введите новый Год рождения студента: ";
 				cin >> Newbirthyear;
-				student.setDate_year(Newbirthyear);
+				studentlst[index].setDate_year(Newbirthyear);
+				
 				break;
 			case 7:
 				cout << "Введите новый Факультет студента: ";
-				cin >> Newfaculty;
-				student.setUniversity_faculty(Newfaculty);
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				getline(cin, Newfaculty);
+				studentlst[index].setUniversity_faculty(Newfaculty);
+				
 				break;
 			case 8:
 				cout << "Введите новую Кафедру студента: ";
-				cin >> Newdepartment;
-				student.setUniversity_department(Newdepartment);
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				getline(cin, Newdepartment);
+				studentlst[index].setUniversity_department(Newdepartment);
+			
 				break;
 			case 9:
 				cout << "Введите новый Номер зачётной книжки студента: ";
-				cin >> Newrecord_book_number;
-				student.setUniversity_record_book_number(Newrecord_book_number);
+				cin>> Newrecord_book_number;
+				studentlst[index].setUniversity_record_book_number(Newrecord_book_number);
+				
 				break;
 			case 10:
 				cout << "Введите новую Группу студента: ";
-				cin >> Newgroup;
-				student.setUniversity_group(Newgroup);
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				getline(cin, Newgroup);
+				studentlst[index].setUniversity_group(Newgroup);
+			
 				break;
+			case 11:
+				ChangeExamStudent(studentlst);
+				
+				break;
+			case 12:
+				return;
+
 			}
+
 		}
+		
 	}
 	WriteToFile(studentlst);
-
-
 }
 
-void Menu::DeleteInformation()
+void Menu::DeleteInformation(List<Student>& studentlst)
 {
 	cout << "Введите номер студента, которого хотите удалить: ";
-	int index;
-	List<Student>  studentlst;
-	List<int> sizelst;//кол-чо студентво
+	int index;;
+	//кол-чо студентво
 	cin >> index;
-	for (int i = 0; i < sizelst.getsizeList(); i++)
+	index--;
+	for (int i = 0; i < (int)studentlst.getsizeList(); i++)
 	{
 		if (i == index)
 		{
@@ -211,88 +353,125 @@ void Menu::printStudent(List<Student>& student)
 	}
 }
 
-void Menu::AddExamStudent()
+//void Menu::AddExamStudent()
+//{
+//	Student subject_student;
+//	string name_subject;
+//	int semestr, number_mark, mark;
+//
+//		cout << "Введите семестр ";
+//		cin >> semestr;
+//		cout << "Введите номер оценки ";
+//		cin >> number_mark;
+//		while (true)
+//		{
+//			cout << "Введите предмет ";
+//			getline(cin, name_subject);
+//			subject_student.setNameSubject(semestr, number_mark, name_subject);
+//			if (subject_student.setNameSubject(semestr, number_mark, name_subject)) break;
+//			else cout << "Введите заново: " << endl;
+//		}
+//		
+//		cout << "Введите оценку по этому предмету ";
+//		cin >> mark;
+//		subject_student.setMark(semestr, number_mark, mark);
+//	
+//
+//}
+
+bool Menu::ChangeExamStudent(List<Student>& studentlst)
 {
-	Student subject_student;
-	string name_subject;
-	int semestr, number_mark, mark;
-
-	while (true)
+	int id;
+	while (true) 
 	{
-		cout << "Введите семестр ";
-		cin >> semestr;
-		cout << "Введите номер оценки ";
-		cin >> number_mark;
-		cout << "Введите предмет ";
-		cin >> name_subject;
-		subject_student.setNameSubject(semestr,number_mark,name_subject);
-		cout << "Введите оценку по этому предмету ";
-		cin >> mark;
-		subject_student.setMark(semestr, number_mark, mark);
-	}
-
-}
-void Menu::ChangeExamStudent()
-{
-	cout <<"(0) Изменить название экзамена.\n"
-		<< "(1) Изменить оценку за экзамен.\n"
-		<< "(2) Выход.";
-	int choice;
-	Student subject_student;
-	string newname_subject;
-	int semestr, number_mark, newmark;
-	cin >> choice;
-	switch (choice)
-	{
-	case 0:
-		cout << "Введите семестр ";
-		cin >> semestr;//семестр в котором хотим изменить
-		cout << "Введите номер предмета ";
-		cin >> number_mark;//номер предмета, который надо изменить
-		for (int i = 0; i < 9; i++)
-		{
-			if (i == semestr)
-			{
-				for (int j = 0; j < 10; j++)
-				{
-					if (j == number_mark)
-					{
-						cout << "Ввыедите новое название экзамена ";
-						cin >> newname_subject;
-						subject_student.setNameSubject(semestr, number_mark, newname_subject);
-					}
-				}
-			}
-
-		}
-		break;
-
-
-	case 1:
-		cout << "Введите семестр ";
-		cin >> semestr;//семестр в котором хотим изменить
-		cout << "Введите номер предмета ";
-		cin >> number_mark;//номер предмета, который надо изменить
-		for (int i = 0; i < 9; i++)
-		{
-			if (i == semestr)
-			{
-				for (int j = 0; j < 10; j++)
-				{
-					if (j == number_mark)
-					{
-						cout << "Введите новую оценку ";
-						cin >> newmark;
-						subject_student.setMark(semestr, number_mark, newmark);
-					}
-				}
-			}
-		}
-		break;
-
-	case 2:
+		
+		cout << "Введите номер студента, которому хотите добавить/изменить оценку: ";
+		cin >> id;
+		id--;
+		if (studentlst.getsizeList() < id) continue; 
 		break;
 		
+	}
+	while(true)
+	{
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	cout <<"(0) Изменить название экзамена.\n"
+		<< "(1) Изменить оценку за экзамен.\n"
+		<< "(2) Выход.\n";
+	
+	string newname_subject;
+
+	int semestr, number_mark, newmark;
+	cin >> choice;
+		switch (choice)
+		{
+		case 0:
+			
+			cout << "Введите семестр: ";
+			cin >> semestr;//семестр в котором хотим изменить
+			semestr--;
+			cout << "Введите номер предмета: ";
+			cin >> number_mark;//номер предмета, который надо изменить
+			number_mark--;
+			for (int i = 0; i < 9; i++)
+			{
+				if (i == semestr)
+				{
+					for (int j = 0; j < 10; j++)
+					{
+						if (j == number_mark)
+						{
+							while (true)
+							{
+								std::cin.clear();
+								std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+								cout << "Ввыедите название экзамена: ";
+								getline(cin, newname_subject);
+								
+
+								studentlst[id].setNameSubject(semestr, number_mark, newname_subject);
+								if (studentlst[id].setNameSubject(semestr, number_mark, newname_subject)) break;
+								else cout << "Введите заново: " << endl;
+							}
+
+						}
+					}
+				}
+
+			}
+			break; 
+
+
+		case 1:
+			cout << "Введите семестр ";
+			cin >> semestr;//семестр в котором хотим изменить
+			semestr--;
+			cout << "Введите номер предмета ";
+			cin >> number_mark;//номер предмета, который надо изменить
+			number_mark--;
+			for (int i = 0; i < 9; i++)
+			{
+				if (i == semestr)
+				{
+					for (int j = 0; j < 10; j++)
+					{
+						if (j == number_mark)
+						{
+							cout << "Введите оценку: ";
+							cin >> newmark;
+							studentlst[id].setMark(semestr, number_mark, newmark);
+						}
+					}
+				}
+			}
+			break;
+
+		case 2:
+			return false;
+			break;
+
+		}
 	}
 }
 
@@ -301,10 +480,20 @@ void Menu::WriteToFile(List<Student>& student)
 	ofstream file;
 	file.open("Student.txt");
 	if (file.is_open()) {
-		for (int i = 0; i < student.getsizeList(); i++)
+		for (size_t i = 0; i < student.getsizeList(); i++)
 		{
-			file <<":" << student[i].getChel_name() << " " << student[i].getChel_surName() << " " << student[i].getChel_familyName() << " " << student[i].getUniversity_group() << endl;
+			file<< ":" << student[i].getChel_familyName() << " " <<student[i].getChel_name() << " " << student[i].getChel_surName()  << " " << student[i].getChel_sex() << " " << student[i].getDate_day() << " " << student[i].getDate_month() << " " << student[i].getDate_year() << " " << student[i].getUniversity_group() << " " << student[i].getUniversity_department() << " " << student[i].getUniversity_faculty() << " " << student[i].getUniversity_record_book_number() << "\n";
+			for (size_t j = 0; j < 9; j++)
+			{
+				for (size_t k = 0; k < 10; k++)
+				{
+					file<< student[i].getNameSubject(j,k) << " " << student[i].getMark(j,k) << "\n";
+
+				}
+
+			}
 		}
+
 		file << "!";
 	}
 	else
@@ -314,7 +503,7 @@ void Menu::WriteToFile(List<Student>& student)
 	file.close();
 }
 
-void Menu::WriteFromFile(List<Student>& student)
+void Menu::ReadFromFile(List<Student>& student)
 {
 	ifstream file;
 	file.open("Student.txt");
@@ -323,26 +512,39 @@ void Menu::WriteFromFile(List<Student>& student)
 	string name,
 		surName,
 		Familyname,
-		sex,
 		faculty,
 		department,//кафедра
-		group,
-		record_book_number;//номер зачётной книжки
+		name_subject,
+		group;
+	string sex;
+	int mark,record_book_number;//номер зачётной книжки
 	unsigned short birthday;
 	unsigned short birthmonth;
 	unsigned short birthyear;
 	if (file.is_open()) {
-		file >> simvol;
-		if (simvol == ':') {
-
-			file >> name >> surName >> Familyname >> sex >> birthday >> birthmonth >> birthyear >> faculty >> department >> record_book_number >> group;
-			newstudent.setChel_Name(name); newstudent.setChel_familyName(surName); newstudent.setChel_surName(Familyname); newstudent.setDate_day(birthday);  newstudent.setDate_month(birthmonth); newstudent.setDate_year(birthyear);
-			newstudent.setUniversity_faculty(faculty); newstudent.setUniversity_department(department); newstudent.setUniversity_record_book_number(record_book_number); newstudent.setUniversity_group(group);
-			student.push_front(newstudent);
-		}
-		else
+		while (file >> simvol)
 		{
-			cout << "end";
+			cout << simvol;
+			if (simvol == ':')
+			{
+				file >> Familyname >> name >> surName >> sex >> birthday >> birthmonth >> birthyear >> group >> department >> faculty >>record_book_number;
+				newstudent.setChel_Name(name); newstudent.setChel_familyName(surName); newstudent.setChel_surName(Familyname); newstudent.setDate_day(birthday);  newstudent.setDate_month(birthmonth); newstudent.setDate_year(birthyear);
+				newstudent.setUniversity_faculty(faculty); newstudent.setUniversity_department(department); newstudent.setUniversity_record_book_number(record_book_number); newstudent.setUniversity_group(group);
+				for (int semsetr = 0; semsetr < 9; semsetr++)
+				{
+					for (int number = 0; number < 10; number++)
+					{
+						file >> name_subject >> mark;
+						newstudent.setNameSubject(semsetr, number, name_subject); newstudent.setMark(semsetr, number, mark);
+					}
+				}
+
+				student.push_back(newstudent);
+			}
+			else
+			{
+				cout << "end";
+			}
 		}
 	}
 	else
@@ -353,10 +555,57 @@ void Menu::WriteFromFile(List<Student>& student)
 }
 
 
+void  Menu::Variant_96(List<Student>& student)
+{
+	List<Student> group_of_excellent_students; //группа отличников и хорошиство
+	List<Student> group_of_threes_students; //группа троечников
+	int data1, data2;
+	cout << "Введите диапазон года рождения студентов:\n";
+	cin >> data1 >> data2;
+	for (int index = 0; index < (int)student.getsizeList(); index++)
+	{
+		if (student[index].getDate_year() >= data1 && student[index].getDate_year() <= data2)
+		{
+			bool flag = true;
+			for (int semestr = 0; semestr < 9; semestr++)
+			{
+				for (int number_subject = 0; number_subject < 10; number_subject++)
+				{
+					if (student[index].getMark(semestr, number_subject) == 3)
+					{
+						group_of_threes_students.push_front(student[index]);
+						flag = false; break;
+					}
 
+				}
+				if (!flag)break;
+			}
+			if (flag) group_of_excellent_students.push_back(student[index]);
+		}
+	}
+	// сортировка списков
+	sortlst(group_of_excellent_students);
+	sortlst(group_of_threes_students);
+	cout << "Студенты отличнки\n";
+	printStudent(group_of_excellent_students);
+	cout << "\n";
+	cout << "Студенты троечники\n";
+	printStudent(group_of_threes_students);
 
+}
 
+void  Menu::sortlst(List<Student>& student)
+{
 
+	for (int index = 0; index < (int)student.getsizeList()-1; index++)
+	{
+		if (student[index].getUniversity_record_book_number() > student[index + 1].getUniversity_record_book_number())
+		{
+			student.movement(index, index + 1);
+		}
+	}
+
+}
 
 
 

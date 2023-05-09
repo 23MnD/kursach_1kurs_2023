@@ -15,8 +15,11 @@ public:
 	void insert(T inf_about_student, int index);
 	void remove(int index);
 	void pop_back();
+	void movement(int index1,int index2);
+	void edit(T inf_about_student, int index);
 	
 	T& operator[](const int index);
+
 
 private:
 	template <typename T>
@@ -32,7 +35,7 @@ private:
 		}
 	};
 	int sizeList;
-	node<T>* head;
+	node<T>* head;//указатель на первый элемент
 };
 
 template <typename T>
@@ -135,13 +138,46 @@ void List<T>::pop_back()
 }
 
 template<typename T>
+void List<T>::movement(int index1,int index2)
+{
+	
+	T temp = operator[](index1);
+	operator[](index1) = operator[](index2);
+	operator[](index2) = temp;
+	
+}
+
+template<typename T>
+void List<T>::edit(T inf_about_student, int index)
+{
+	remove(index);
+	insert(inf_about_student, index);
+}
+
+
+
+template<typename T>
+T& List<T>::operator[](const int index)
+{	
+	 int counter = 0;
+	 node<T>* current = this->head;
+	 while (current != nullptr)
+	 {
+		 if (counter == index)
+		 {
+			 return current->inf_about_student;
+		 }
+		 current = current->next;
+		 counter++;
+	 }		
+}
+
+template<typename T>
 List<T>::~List()
 {
 	clear();
 
 }
-
-
 
 
 

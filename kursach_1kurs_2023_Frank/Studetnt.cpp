@@ -1,158 +1,152 @@
 #include "Studetnt.h"
 
-void Student::setChel_Name(string name)
+bool Student::setChel_Name(string name)
 {
-	string digits = "0123456789";
+	
 	for (int i=0; i < (int)size(name); i++)
 	{
-		for (int j=0; j < (int)size(digits); j++)
+		if (name[i] >= '0' && name[i] <= '9')
 		{
-			if (!(name[i] == digits[j]))
-			{
-				chel->name = name;
-			}
-			else
-			{
-				cout << "Не правильный ввод имени";
-			}
+			return false;
 		}
+
 	}
+	chel.name = name;
+	return true;
 }
-void Student::setChel_surName(string surName)
+bool Student::setChel_surName(string surName)
 {
-	string digits = "0123456789";
+	
 	for (int i=0; i < (int)size(surName); i++)
 	{
-		for (int j=0; j < (int)size(digits); j++)
+		if (surName[i] >= '0' && surName[i] <= '9')
 		{
-			if (!(surName[i] == digits[j]))
-			{
-				chel->surName = surName;
-			}
-			else
-			{
-				cout << "Не правильный ввод отчества";
-			}
+			return false;
 		}
+
 	}
+	chel.surName = surName;
+	return true;
+		
+	
 }
-void Student::setChel_familyName(string familyName)
+bool Student::setChel_familyName(string familyName)
 {
-	string digits = "0123456789";
+	
+	
 	for (int i=0; i < (int)size(familyName); i++)
 	{
-		for (int j=0; j < (int)size(digits); j++)
+		if (familyName[i] >= '0' && familyName[i] <= '9')
 		{
-			if (!(familyName[i] == digits[j]))
-			{
-				chel->familyName = familyName;
-			}
-			else
-			{
-				cout << "Не правильный ввод фамилии";
-			}
+			return false;
 		}
+		
 	}
+	chel.familyName = familyName;
+	return true;
 }
-void Student::setChel_sex(string sex)
+bool Student::setChel_sex(char sex)
 {
-	if (!(sex == "М" || sex == "Ж"))
-	{
-		cout << "Пол введен неверно";
-	}
-	else
-	{
-		chel->sex = sex;
-	}
+
+		if (sex == 'М' || sex == 'Ж')
+		{
+			*chel.sex = sex;
+			return true;
+		}
+		
+		return false;
 }
 string Student::getChel_name()
 {
-	return chel->name;
+	return chel.name;
 }
 string Student::getChel_surName()
 {
-	return chel->surName;
+	return chel.surName;
 }
 
 string Student::getChel_familyName()
 {
-	return chel->familyName;
+	return chel.familyName;
 }
 string Student::getChel_sex()
 {
-	return chel->sex;
+	return chel.sex;
 }
 
-void Student::setDate_day(unsigned short birthday)
+bool Student::setDate_day(unsigned short birthday)
 {
-	if (birthday > 31 && birthday < 1)
+	if (birthday <= 31 && birthday >= 1)
 	{
-		cout << "День рождения введен неверно";
+		return true;
+		data.birthday = birthday;
 	}
 	else
 	{
-		data->birthday = birthday;
+		return false;
 	}
 }
-void Student::setDate_month(unsigned short birthmonth)
+bool Student::setDate_month(unsigned short birthmonth)
 {
-	if (birthmonth > 12 && birthmonth < 1)
+	if (birthmonth <= 12 && birthmonth >= 1)
 	{
-		cout << "Месяц рождения введён неверно";
+		return true;
+		data.birthmonth = birthmonth;
 	}
 	else
 	{
-		data->birthmonth = birthmonth;
+		return false;
 	}
 }
 void Student::setDate_year(unsigned short birthyear)
 {
-	data->birthyear = birthyear;
+	
+	data.birthyear = birthyear;
 }
 unsigned short Student::getDate_day()
 {
-	return data->birthday;
+	return data.birthday;
 }
 unsigned short Student::getDate_month()
 {
-	return data->birthmonth;
+	return data.birthmonth;
 }
 unsigned short Student::getDate_year()
 {
-	return data->birthyear;
+	return data.birthyear;
 }
 void Student::setUniversity_faculty(string faculty)
 {
-	univer->faculty = faculty;
+	univer.faculty = faculty;
 	
 }
 void Student::setUniversity_department(string department)
 {
-	univer->department = department;
+	univer.department = department;
 }
 void Student::setUniversity_group(string group)
 {
-	univer->group = group;
+	univer.group = group;
 }
-void Student::setUniversity_record_book_number(string record_book_number)
+void Student::setUniversity_record_book_number(int record_book_number)
 {
-	univer->record_book_number = record_book_number;
+	univer.record_book_number = record_book_number;
 }
 string Student::getUniversity_faculty()
 {
-	return univer->faculty;
+	return univer.faculty;
 }
 string Student::getUniversity_department()
 {
-	return univer->department;
+	return univer.department;
 }
 string Student::getUniversity_group()
 {
-	return univer->group;
+	return univer.group;
 }
-string Student::getUniversity_record_book_number()
+int Student::getUniversity_record_book_number()
 {
-	return univer->record_book_number;
+	return univer.record_book_number;
 }
 void Student::setMark(int semestr, int pos, int mark)
 {
@@ -166,23 +160,17 @@ int Student:: getMark(int semestr, int number_mark)
 {
 	return exam_marks[semestr][number_mark].mark;
 }
-void Student::setNameSubject(int semestr, int number_mark, string name)
+bool Student::setNameSubject(int semestr, int number_mark, string name)
 {
-	string digits = "0123456789";
 	for (int i = 0; i < (int)size(name); i++)
 	{
-		for (int j = 0; j < (int)size(digits); j++)
+		if (name[i] >= '0' && name[i] <= '9')
 		{
-			if (!(name[i] == digits[j]))
-			{
-				exam_marks[semestr][number_mark].nameExam = name;
-			}
-			else
-			{
-				cout << "Не правильный ввод предмета";
-			}
+			return false;
 		}
 	}
+	exam_marks[semestr][number_mark].nameExam = name;
+	return true;
 }
 string Student::getNameSubject(int semestr, int number_mark)
 {
@@ -194,20 +182,20 @@ void Student::printDate() {
 	int w = 10;
 	int delta = (wLine - w) / 2 - 1;
 	cout.width(delta); std::cout << " ";
-	if (this->data->birthday > 9) {
-		std::cout << this->data->birthday;
+	if (data.birthday > 9) {
+		std::cout << data.birthday;
 	}
 	else {
-			cout << "0" << this->data->birthday;
+			cout << "0" << data.birthday;
 	}
 	cout << ".";
-	if (this->data->birthmonth > 9) {
-		cout << this->data->birthmonth;
+	if (data.birthmonth > 9) {
+		cout << data.birthmonth;
 	}
 	else {
-		cout << "0" << this->data->birthmonth;
+		cout << "0" << data.birthmonth;
 	}
 	cout << ".";
-	cout << this->data->birthyear;
+	cout << data.birthyear;
 	cout.width(delta); cout << " ";
 }

@@ -7,22 +7,18 @@
 
 class Menu
 {
-	Student studetn;
-	List<Student> lst;
-
-
-
-
 public:
 
-	int EntryInformation();
-	void ChangeInformation();
-	void DeleteInformation();
+	void EntryInformation(List<Student>& studentlst);
+	void ChangeInformation(List<Student>& studentlst);
+	void DeleteInformation(List<Student>& studentlst);
 	void printStudent(List<Student>& student);
-	void AddExamStudent();
-	void ChangeExamStudent();
+	//void AddExamStudent();
+	bool ChangeExamStudent(List<Student>& studentlst);
 	void WriteToFile(List<Student>& student);
-	void WriteFromFile(List<Student>& student);
-	void MainMenu();
+	void ReadFromFile(List<Student>& student);
+	void MainMenu(List<Student>& student);
+	void sortlst(List<Student>& student);
+	void Variant_96(List<Student>& student);
 };
 
