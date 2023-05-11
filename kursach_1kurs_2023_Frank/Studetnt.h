@@ -60,7 +60,7 @@ public:
 		{
 			for (size_t k = 0; k < 10; k++)
 			{
-				exam_marks[j][k].nameExam = "bebra";
+				exam_marks[j][k].nameExam = "default";
 				exam_marks[j][k].mark = -1;
 			}
 		}

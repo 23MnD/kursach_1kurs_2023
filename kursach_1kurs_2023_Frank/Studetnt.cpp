@@ -150,7 +150,8 @@ int Student::getUniversity_record_book_number()
 }
 void Student::setMark(int semestr, int pos, int mark)
 {
-	if (mark >= 2 && mark <= 5)
+	string str;
+	if (mark >=0 && mark <= 5)
 	{
 		exam_marks[semestr][pos].mark = mark; 
 	}
@@ -197,5 +198,5 @@ void Student::printDate() {
 	}
 	cout << ".";
 	cout << data.birthyear;
-	cout.width(delta); cout << " ";
+	cout.width(delta); cout << " " << endl;
 }

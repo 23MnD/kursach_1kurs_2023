@@ -20,5 +20,7 @@ public:
 	void MainMenu(List<Student>& student);
 	void sortlst(List<Student>& student);
 	void Variant_96(List<Student>& student);
+	void Decrypt(string name);
+	void Crypt(string name);
 };
 
