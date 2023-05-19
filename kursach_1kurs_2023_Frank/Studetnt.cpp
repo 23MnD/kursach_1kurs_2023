@@ -28,7 +28,6 @@ bool Student::setChel_surName(string surName)
 	chel.surName = surName;
 	return true;
 		
-	
 }
 bool Student::setChel_familyName(string familyName)
 {
@@ -47,14 +46,12 @@ bool Student::setChel_familyName(string familyName)
 }
 bool Student::setChel_sex(char sex)
 {
-
-		if (sex == 'Ì' || sex == 'Æ')
-		{
-			*chel.sex = sex;
-			return true;
-		}
-		
+	if (sex != 'Ì' && sex != 'Æ')
+	{
 		return false;
+	}
+	chel.sex = sex;
+	return true;
 }
 string Student::getChel_name()
 {
@@ -69,7 +66,7 @@ string Student::getChel_familyName()
 {
 	return chel.familyName;
 }
-string Student::getChel_sex()
+char Student::getChel_sex()
 {
 	return chel.sex;
 }
@@ -78,8 +75,9 @@ bool Student::setDate_day(unsigned short birthday)
 {
 	if (birthday <= 31 && birthday >= 1)
 	{
-		return true;
+		
 		data.birthday = birthday;
+		return true;
 	}
 	else
 	{
@@ -90,8 +88,8 @@ bool Student::setDate_month(unsigned short birthmonth)
 {
 	if (birthmonth <= 12 && birthmonth >= 1)
 	{
-		return true;
 		data.birthmonth = birthmonth;
+		return true;
 	}
 	else
 	{
@@ -100,7 +98,6 @@ bool Student::setDate_month(unsigned short birthmonth)
 }
 void Student::setDate_year(unsigned short birthyear)
 {
-	
 	data.birthyear = birthyear;
 }
 unsigned short Student::getDate_day()
@@ -150,11 +147,10 @@ int Student::getUniversity_record_book_number()
 }
 void Student::setMark(int semestr, int pos, int mark)
 {
-	string str;
-	if (mark >=0 && mark <= 5)
-	{
+	
+	
 		exam_marks[semestr][pos].mark = mark; 
-	}
+	
 }
 
 int Student:: getMark(int semestr, int number_mark)

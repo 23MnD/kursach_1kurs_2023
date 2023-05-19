@@ -1,5 +1,4 @@
 ﻿#pragma once
-//написать примрную работу с оценками.
 #include "Menu.h"
 #include<iostream>
 #include <algorithm>
@@ -21,7 +20,7 @@ void Menu:: MainMenu(List<Student>& student)
 		{
 		case 0:
 			EntryInformation(student);
-			ChangeExamStudent(student);
+		
 			WriteToFile(student);
 			break;
 		case 1:
@@ -40,6 +39,7 @@ void Menu:: MainMenu(List<Student>& student)
 			Variant_96(student);
 			break;
 		case 5:
+			WriteToFile(student);
 			return;
 		
 		}
@@ -85,10 +85,7 @@ void Menu::EntryInformation(List<Student>&  studentlst)
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			cout << "Введите Имя: ";
-			/*std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
 			getline(cin, name);
-			
 			student.setChel_Name(name);
 			if (student.setChel_Name(name)) break;
 			else cout << "Введите заново: " << endl;
@@ -96,8 +93,6 @@ void Menu::EntryInformation(List<Student>&  studentlst)
 		while (true)
 		{
 			cout << "Введите Отчество: ";
-			/*std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
 			getline(cin, surName);
 			student.setChel_surName(surName);
 			if (student.setChel_surName(surName)) break;
@@ -115,7 +110,7 @@ void Menu::EntryInformation(List<Student>&  studentlst)
 		}
 		while (true)
 		{
-			cout << "Ввидете день роджения студента: ";
+			cout << "Ввидете день рождения студента: ";
 			cin >> birthday;
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -125,7 +120,7 @@ void Menu::EntryInformation(List<Student>&  studentlst)
 		}
 		while (true)
 		{
-			cout << "Ввидете месяц роджения студента: ";
+			cout << "Ввидете месяц рождения студента: ";
 			cin >> birthmonth;
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -133,27 +128,21 @@ void Menu::EntryInformation(List<Student>&  studentlst)
 			if (student.setDate_month(birthmonth)) break;
 			else cout << "Введите заново: " << endl;
 		}
-		cout << "Ввидете год роджения студента: ";
+		cout << "Ввидете год рождения студента: ";
 		cin >> birthyear;
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		student.setDate_year(birthyear);
 		cout << "Введите факультет: ";
 		getline(cin, faculty);
-		/*std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
 		student.setUniversity_faculty(faculty);
 		cout << "Введите кафедру: ";
 		getline(cin, department);
-		/*std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
 		student.setUniversity_department(department);
-		cout << "Введите номер зачетной кижки: ";
+		cout << "Введите номер зачетной книжки: ";
 		cin>>record_book_number;
-		/*std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');*/
 		student.setUniversity_record_book_number(record_book_number);
-		cout << "Ввидете группу студента: ";
+		cout << "Введите группу студента: ";
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		getline(cin, group);
@@ -341,43 +330,16 @@ void Menu::DeleteInformation(List<Student>& studentlst)
 		}
 	}
 	WriteToFile(studentlst);
-
 }
 
 void Menu::printStudent(List<Student>& student)
 {
 	for (int i = 0; i < student.getsizeList(); i++)
 	{
-		cout << student[i].getChel_name() << " " << student[i].getChel_surName() << " " << student[i].getChel_familyName() << " " << student[i].getUniversity_group();  
+		cout << student[i].getChel_familyName() << " " << student[i].getChel_name() << " " << student[i].getChel_surName() << " " << student[i].getUniversity_group();
 		student[i].printDate(); 
 	}
 }
-
-//void Menu::AddExamStudent()
-//{
-//	Student subject_student;
-//	string name_subject;
-//	int semestr, number_mark, mark;
-//
-//		cout << "Введите семестр ";
-//		cin >> semestr;
-//		cout << "Введите номер оценки ";
-//		cin >> number_mark;
-//		while (true)
-//		{
-//			cout << "Введите предмет ";
-//			getline(cin, name_subject);
-//			subject_student.setNameSubject(semestr, number_mark, name_subject);
-//			if (subject_student.setNameSubject(semestr, number_mark, name_subject)) break;
-//			else cout << "Введите заново: " << endl;
-//		}
-//		
-//		cout << "Введите оценку по этому предмету ";
-//		cin >> mark;
-//		subject_student.setMark(semestr, number_mark, mark);
-//	
-//
-//}
 
 bool Menu::ChangeExamStudent(List<Student>& studentlst)
 {
@@ -407,7 +369,7 @@ bool Menu::ChangeExamStudent(List<Student>& studentlst)
 		switch (choice)
 		{
 		case 0:
-			
+		
 			cout << "Введите семестр: ";
 			cin >> semestr;//семестр в котором хотим изменить
 			semestr--;
@@ -441,13 +403,12 @@ bool Menu::ChangeExamStudent(List<Student>& studentlst)
 
 			}
 			break; 
-
-
 		case 1:
-			cout << "Введите семестр ";
+
+			cout << "Введите семестр: ";
 			cin >> semestr;//семестр в котором хотим изменить
 			semestr--;
-			cout << "Введите номер предмета ";
+			cout << "Введите номер предмета: ";
 			cin >> number_mark;//номер предмета, который надо изменить
 			number_mark--;
 			for (int i = 0; i < 9; i++)
@@ -460,11 +421,11 @@ bool Menu::ChangeExamStudent(List<Student>& studentlst)
 						{
 							cout <<"Введите оценку:\n "
 								<< "0 - НЕЗАЧЁТ\n"
-								<< "1 - ЗАЧЁТ\n"
-								<< "2 - ОЦЕНКА 2\n"
-								<< "3 - ОЦЕНКА 3\n"
-								<< "4 - ОЦЕНКА 4\n"
-								<< "5 - ОЦЕНКА 5\n";
+								<< " 1 - ЗАЧЁТ\n"
+								<< " 2 - ОЦЕНКА 2\n"
+								<< " 3 - ОЦЕНКА 3\n"
+								<< " 4 - ОЦЕНКА 4\n"
+								<< " 5 - ОЦЕНКА 5\n";
 							cin >> newmark;
 							studentlst[id].setMark(semestr, number_mark, newmark);
 						}
@@ -474,6 +435,7 @@ bool Menu::ChangeExamStudent(List<Student>& studentlst)
 			break;
 
 		case 2:
+
 			return false;
 			break;
 
@@ -514,8 +476,7 @@ void Menu::ReadFromFile(List<Student>& student)
 	ifstream file;
 	string filename = "Student.txt";
 	Decrypt(filename);
-	file.open(filename);
-
+	file.open(filename,ios::in);
 	char simvol;
 	Student newstudent;
 	string name,
@@ -525,7 +486,7 @@ void Menu::ReadFromFile(List<Student>& student)
 		department,
 		name_subject,
 		group;
-	string sex;
+	char sex;
 	int mark, record_book_number;
 	unsigned short birthday;
 	unsigned short birthmonth;
@@ -533,11 +494,10 @@ void Menu::ReadFromFile(List<Student>& student)
 	if (file.is_open()) {
 		while (file >> simvol)
 		{
-			//cout << simvol;
 			if (simvol == ':')
 			{
 				file >> Familyname >> name >> surName >> sex >> birthday >> birthmonth >> birthyear >> group >> department >> faculty >> record_book_number;
-				newstudent.setChel_Name(name); newstudent.setChel_familyName(surName); newstudent.setChel_surName(Familyname); newstudent.setDate_day(birthday);  newstudent.setDate_month(birthmonth); newstudent.setDate_year(birthyear);
+				newstudent.setChel_Name(name); newstudent.setChel_familyName(Familyname); newstudent.setChel_surName(surName); newstudent.setDate_day(birthday);  newstudent.setDate_month(birthmonth); newstudent.setDate_year(birthyear);
 				newstudent.setUniversity_faculty(faculty); newstudent.setUniversity_department(department); newstudent.setUniversity_record_book_number(record_book_number); newstudent.setUniversity_group(group);
 				for (int semsetr = 0; semsetr < 9; semsetr++)
 				{
@@ -548,12 +508,8 @@ void Menu::ReadFromFile(List<Student>& student)
 					}
 				}
 
-				student.push_back(newstudent);
+				student.push_front(newstudent);
 			}
-			//else
-			//{
-			//	//cout << "end";
-			//}
 		}
 	}
 	else
@@ -561,14 +517,34 @@ void Menu::ReadFromFile(List<Student>& student)
 		cout << "Ошибка чтения файла";
 	}
 	file.close();
+	Crypt(filename);
 }
-
+void Menu::printStudentVar_96(List<Student>& student)
+{
+	for (int i = 0; i < student.getsizeList(); i++)
+	{
+		cout << student[i].getChel_familyName() << " " << student[i].getChel_name() << " " << student[i].getChel_surName() << " " << student[i].getUniversity_group();
+		student[i].printDate();
+		for (int semestr = 0; semestr < 9; semestr++)
+		{
+			semestr++;
+			cout << semestr << " семестр" << endl;
+			semestr--;
+			for (int number_subject = 0; number_subject < 10; number_subject++)
+			{
+				if (student[i].getNameSubject(semestr, number_subject) == "default");
+				else cout << student[i].getNameSubject(semestr, number_subject) << " " << student[i].getMark(semestr, number_subject) << endl;
+			}
+		}
+	}
+}
 void  Menu::Variant_96(List<Student>& student)
 {
 	List<Student> group_of_excellent_students; //группа отличников и хорошиство
 	List<Student> group_of_threes_students; //группа троечников
 	int data1, data2;
-	cout << "Введите диапазон года рождения студентов:\n";
+	int counter=0;
+	cout << "Введите интервал года рождения студентов:\n";
 	cin >> data1 >> data2;
 	for (int index = 0; index < (int)student.getsizeList(); index++)
 	{
@@ -579,32 +555,35 @@ void  Menu::Variant_96(List<Student>& student)
 			{
 				for (int number_subject = 0; number_subject < 10; number_subject++)
 				{
-					if (student[index].getMark(semestr, number_subject) == 3 || student[index].getMark(semestr, number_subject) == 0)
+					if (student[index].getMark(semestr, number_subject) == 3 || student[index].getMark(semestr, number_subject) == 0 || student[index].getMark(semestr, number_subject) == 2)
 					{
 						group_of_threes_students.push_front(student[index]);
 						flag = false; break;
+					}
+					if (student[index].getMark(semestr, number_subject) != -1)
+					{
+						counter++;
 					}
 
 				}
 				if (!flag)break;
 			}
-			if (flag) group_of_excellent_students.push_back(student[index]);
+			if (counter == 0) group_of_threes_students.push_front(student[index]);
+			else if (flag) group_of_excellent_students.push_back(student[index]);
 		}
 	}
 	// сортировка списков
 	sortlst(group_of_excellent_students);
 	sortlst(group_of_threes_students);
 	cout << "Студенты отличнки\n";
-	printStudent(group_of_excellent_students);
-	cout << "\n";
+	printStudentVar_96(group_of_excellent_students);
 	cout << "Студенты троечники\n";
-	printStudent(group_of_threes_students);
+	printStudentVar_96(group_of_threes_students);
 
 }
 
 void  Menu::sortlst(List<Student>& student)
 {
-
 	for (int index = 0; index < (int)student.getsizeList() - 1; index++)
 	{
 		if (student[index].getUniversity_record_book_number() > student[index + 1].getUniversity_record_book_number())
@@ -613,6 +592,7 @@ void  Menu::sortlst(List<Student>& student)
 		}
 	}
 }
+
 void Menu::Crypt(string fileName)
 {
 	srand(time(NULL));

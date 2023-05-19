@@ -127,15 +127,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="kursach_1kurs_2023_Frank.cpp" />
+    <ClCompile Include="Students_DB.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Studetnt.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FileWork.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Studetnt.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

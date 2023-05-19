@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="kursach_1kurs_2023_Frank.cpp">
+    <ClCompile Include="Students_DB.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Studetnt.cpp">
@@ -35,8 +35,13 @@
     <ClInclude Include="List.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="FileWork.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="ClassDiagram1.cd">
+      <Filter>Исходные файлы</Filter>
+    </None>
   </ItemGroup>
 </Project>

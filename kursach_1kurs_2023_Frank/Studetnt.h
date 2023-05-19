@@ -6,20 +6,24 @@
 #include <string>
 #include <fstream>
 #include "List.h"
+
 using namespace std;
+
 struct Chel
 {
 	string name="";
 	string surName="";
 	string familyName="";
-	 char sex[1];
+	char sex;
 };
+
 struct Date
 {
 	unsigned short birthday;
 	unsigned short birthmonth;
 	unsigned short birthyear;
 };
+
 struct University
 {
 	string faculty;
@@ -27,11 +31,11 @@ struct University
 	string group;
 	int record_book_number; //номер зачётной книжки
 };
+
 struct Exam {
 	string nameExam;
 	int mark;
 };
-
 
 class Student
 {
@@ -41,14 +45,13 @@ private:
 	University univer;
 	Exam exam_marks[9][10]; //9 - семестров и 10 - предметов
 
-
 public:
 	Student()
 	{
 		chel.name = "default";
 		chel.surName = "default";
 		chel.familyName= "default";
-		*chel.sex=*"d";
+		chel.sex = 'd';
 		data.birthday = 1;
 		data.birthmonth = 1;
 		data.birthyear = 2000;       
@@ -79,8 +82,7 @@ public:
 
 	string getChel_familyName();
 
-	string getChel_sex();
-
+	char getChel_sex();
 
 	bool setDate_day(unsigned short birthday);
 	
@@ -119,15 +121,6 @@ public:
 	string getNameSubject(int semestr, int pos);
 
 	void printDate();
-	
-	
-
-
-
-
-
-
-	
 
 };
 
